@@ -40,7 +40,7 @@ def get_ad_info(html, write_to_file='cats_avito.csv'):
             'price':    price,
             'address':  address,
             'ad_url':   ad_link,
-            'ad_url':  thumb_link,
+            'thb_url':  thumb_link,
         }
         write_to_csv(write_to_file, ad_data)
 
@@ -57,7 +57,7 @@ def write_to_csv(filename, data, mode='a'):
         with open(filename, mode) as f:
             w = csv.writer(f, delimiter=';')
             w.writerow((data['id'], data['title'], data['price'],
-                       data['address'], data['ad_url'], data['ad_url']))
+                       data['address'], data['ad_url'], data['thb_url']))
     except csv.Error as err:
         print('file {}: {}'.format(filename, err))
     except Exception as err:
