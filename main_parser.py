@@ -46,6 +46,9 @@ def get_ad_info(html, write_to_file='cats_avito.csv'):
 
 
 def get_pages_count(html):
+    """
+    :return: last page number from selected category"
+    """
     soup = BeautifulSoup(html, 'html.parser')
     pages = soup.find('div', class_='pagination-pages').find_all('a', class_='pagination-page')[-1].get('href')
     last_page_num = pages.split('=')[1].split('&')[0]
@@ -64,13 +67,20 @@ def write_to_csv(filename, data, mode='a'):
         print("Unexpected error writing cvf file: ", err)
 
 
+def get_cats_breed(html):
+    pass
+
+
 def main():
     # get total pages count from first page
     url = 'https://www.avito.ru/moskva/koshki/abissinskaya?p=1'
-    page_html = get_html(url)
-    #last_page = get_pages_count(page_html)
-    get_ad_info(page_html)
-    #get_pages_count(page_html)
+    last_page = get_pages_count(get_html(url))
+    # need add dynamic cat breed
+    default_url = 'https://www.avito.ru/moskva/koshki/abissinskaya?p=%s'
+
+    for page_num in range(1, last_page + 1):
+        generic_url = default_url % page_num
+        get_ad_info(get_html(generic_url))
 
 
 if __name__ == '__main__':
