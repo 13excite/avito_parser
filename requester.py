@@ -11,7 +11,7 @@ def get_html(url, timeout=5):
         'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11',
     }
     try:
-        r = requests.get(url, timeout=timeout)
+        r = requests.get(url, headers=headers, timeout=timeout)
         return r.text
     except requests.ConnectTimeout as err:
         print("Request error: %s" % err)
