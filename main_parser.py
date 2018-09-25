@@ -7,8 +7,11 @@ def get_items_titles(html):
     :param html:
     :return: list with ads title
     """
+    ads_lst = []
     soup = BeautifulSoup(html, 'html.parser')
-    print(soup.find_all(itemprop="name"))
+    for el in soup.find_all("span", itemprop="name"):
+        ads_lst.append(el.get_text())
+    return ads_lst
 
 
 def main():
