@@ -58,9 +58,12 @@ def get_pages_count(html):
     :return: last page number from selected category"
     """
     soup = BeautifulSoup(html, 'html.parser')
-    pages = soup.find('div', class_='pagination-pages').find_all('a', class_='pagination-page')[-1].get('href')
-    last_page_num = pages.split('=')[1].split('&')[0]
-    return int(last_page_num)
+    try:
+        pages = soup.find('div', class_='pagination-pages').find_all('a', class_='pagination-page')[-1].get('href')
+        last_page_num = pages.split('=')[1].split('&')[0]
+        return int(last_page_num)
+    except Exception as err:
+        print('Zabanili', err)
 
 
 def write_to_csv(filename, data, mode='a'):
