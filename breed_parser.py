@@ -3,7 +3,7 @@ from requester import get_html
 import re
 
 
-def get_breed(url):
+def get_breed(url='https://www.avito.ru/moskva/koshki'):
     """
     :param url: url all cat's category 'https://www.avito.ru/moskva/koshki?s_trg=3'
     :return: dict with cats breed and url
@@ -16,5 +16,5 @@ def get_breed(url):
     for tag_a in breed_block:
         breed_url = re.search('^\/.*\?', str(tag_a.get('href'))).group()
         breed_name = tag_a.get('title')
-        breed_urls_dict[breed_name] = 'https://avirto.ru' + breed_url
+        breed_urls_dict[breed_name] = 'https://avito.ru' + breed_url + 'p=%s'
     return breed_urls_dict
