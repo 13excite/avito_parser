@@ -11,7 +11,8 @@ def get_item_ad(url):
     return soup.find('div', class_='item-view')
 
 
-def get_ad_header(view_header_html):
+def get_ad_header(url):
+    view_header_html = get_item_ad(url)
     try:
         price = view_header_html.find('div', class_='price-value').text.strip()
     except Exception:
@@ -42,11 +43,3 @@ def get_ad_header(view_header_html):
         'address': address,
         'desc': description,
     }
-
-def main():
-    d_url = 'https://www.avito.ru/moskva/koshki/kotik_4_mes_v_dar_997482427'
-    print(get_ad_header(get_item_ad(d_url)))
-
-
-if __name__ == '__main__':
-    main()
