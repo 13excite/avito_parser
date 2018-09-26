@@ -11,7 +11,7 @@ def get_item_ad(url):
     return soup.find('div', class_='item-view')
 
 
-def get_ad_header(url):
+def get_ad_info(url, breed):
     view_header_html = get_item_ad(url)
     try:
         price = view_header_html.find('div', class_='price-value').text.strip()
@@ -35,11 +35,12 @@ def get_ad_header(url):
     except Exception:
         description = ''
     return {
-        'id': ad_id,
-        'title': title,
-        'date': ad_date,
-        'image_url': ad_image,
-        'price': price,
-        'address': address,
-        'desc': description,
+        'id':           ad_id,
+        'title':        title,
+        'date':         ad_date,
+        'image_url':    ad_image,
+        'price':        price,
+        'address':      address,
+        'desc':         description,
+        'breed':        breed
     }
