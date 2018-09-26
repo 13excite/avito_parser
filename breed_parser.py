@@ -10,7 +10,6 @@ def get_breed(url='https://www.avito.ru/moskva/koshki'):
     dict description: key=cat breed(in ru-RU), value=url to cat breed from key
     """
     html = get_html(url)
-    print(html)
     soup = BeautifulSoup(html, 'lxml')
     try:
         breed_block = soup.find('div', class_='catalog-counts__row').find_all('a')
@@ -23,11 +22,3 @@ def get_breed(url='https://www.avito.ru/moskva/koshki'):
     except Exception as err:
         print("Zabanili")
         print('Error: ', err)
-
-
-#def main():
-#    for k,v in get_breed().items():
-#        print(k, v % 's')
-
-#if __name__ == '__main__':
-#    main()
