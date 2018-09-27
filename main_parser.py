@@ -84,6 +84,26 @@ def get_cats_breed(html):
 def main():
     # get breed urls
     # около 2к запроса банят, надо слипать на 1500 хз на сколько
+    hardcoe_dict_get_breed = {'Абиссинская': 'https://avito.ru/moskva/koshki/abissinskaya?p=%s',
+                              'Бенгальская': 'https://avito.ru/moskva/koshki/bengalskaya?p=%s',
+                              'Британская': 'https://avito.ru/moskva/koshki/britanskaya?p=%s',
+                              'Бурманская': 'https://avito.ru/moskva/koshki/burmanskaya?p=%s',
+                              'Девон-рекс': 'https://avito.ru/moskva/koshki/devon-reks?p=%s',
+                              'Европейская': 'https://avito.ru/moskva/koshki/evropeyskaya?p=%s',
+                              'Канадский сфинкс': 'https://avito.ru/moskva/koshki/kanadskiy_sfinks?p=%s',
+                              'Корниш-рекс': 'https://avito.ru/moskva/koshki/kornish-reks?p=%s',
+                              'Курильский бобтейл': 'https://avito.ru/moskva/koshki/kurilskiy_bobteyl?p=%s',
+                              'Мейн-кун': 'https://avito.ru/moskva/koshki/meyn-kun?p=%s',
+                              'Невская маскарадная': 'https://avito.ru/moskva/koshki/nevskaya_maskaradnaya?p=%s',
+                              'Ориентальная': 'https://avito.ru/moskva/koshki/orientalnaya?p=%s',
+                              'Персидская': 'https://avito.ru/moskva/koshki/persidskaya?p=%s',
+                              'Русская голубая': 'https://avito.ru/moskva/koshki/russkaya_golubaya?p=%s',
+                              'Сибирская': 'https://avito.ru/moskva/koshki/sibirskaya?p=%s',
+                              'Турецкая ангора': 'https://avito.ru/moskva/koshki/turetskaya_angora?p=%s',
+                              'Уральский рекс': 'https://avito.ru/moskva/koshki/uralskiy_reks?p=%s',
+                              'Шотландская': 'https://avito.ru/moskva/koshki/shotlandskaya?p=%s',
+                              'Экзотическая': 'https://avito.ru/moskva/koshki/ekzoticheskaya?p=%s',
+                              'Другая': 'https://avito.ru/moskva/koshki/drugaya?p=%s'}
     for breed, breed_url in get_breed().items():
         first_breed_page = breed_url % '1'
         last_page = get_pages_count(get_html(first_breed_page))
