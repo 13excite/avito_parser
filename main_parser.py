@@ -84,9 +84,7 @@ def get_cats_breed(html):
 def main():
     # get breed urls
     # около 2к запроса банят, надо слипать на 1500 хз на сколько
-    hardcoe_dict_get_breed = {'Абиссинская': 'https://avito.ru/moskva/koshki/abissinskaya?p=%s',
-                              'Бенгальская': 'https://avito.ru/moskva/koshki/bengalskaya?p=%s',
-                              'Британская': 'https://avito.ru/moskva/koshki/britanskaya?p=%s',
+    hardcode_dict_get_breed = {
                               'Бурманская': 'https://avito.ru/moskva/koshki/burmanskaya?p=%s',
                               'Девон-рекс': 'https://avito.ru/moskva/koshki/devon-reks?p=%s',
                               'Европейская': 'https://avito.ru/moskva/koshki/evropeyskaya?p=%s',
@@ -103,11 +101,19 @@ def main():
                               'Уральский рекс': 'https://avito.ru/moskva/koshki/uralskiy_reks?p=%s',
                               'Шотландская': 'https://avito.ru/moskva/koshki/shotlandskaya?p=%s',
                               'Экзотическая': 'https://avito.ru/moskva/koshki/ekzoticheskaya?p=%s',
-                              'Другая': 'https://avito.ru/moskva/koshki/drugaya?p=%s'}
-    for breed, breed_url in get_breed().items():
+                              'Другая': 'https://avito.ru/moskva/koshki/drugaya?p=%s',
+    }
+    #for breed, breed_url in get_breed().items():
+    for breed, breed_url in hardcode_dict_get_breed.items():
         first_breed_page = breed_url % '1'
         last_page = get_pages_count(get_html(first_breed_page))
+        req_count = 0
         for page_num in range(1, last_page + 1):
+            req_count += 1
+            if req_count % 600 == 0:
+                print("req_count =", req_count)
+                time.sleep(1801)
+                print('sleep 30min')
             generic_url = breed_url % page_num
             get_base_info(get_html(generic_url), breed)
         time.sleep(5)
