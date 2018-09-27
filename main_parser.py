@@ -81,6 +81,13 @@ def get_cats_breed(html):
     pass
 
 
+def start_sleep(request_count, seconds, message):
+    if request_count % 4 == 0:
+        print(message, request_count)
+        print("SLEEEEP: ", seconds)
+        time.sleep(seconds)
+
+
 def main():
     # get breed urls
     # около 2к запроса банят, надо слипать на 1500 хз на сколько
@@ -104,19 +111,27 @@ def main():
                               'Другая': 'https://avito.ru/moskva/koshki/drugaya?p=%s',
     }
     #for breed, breed_url in get_breed().items():
+    req_count = 0
     for breed, breed_url in hardcode_dict_get_breed.items():
         first_breed_page = breed_url % '1'
+        req_count += 1
+        #sleep
+        print('FIRST SLEEEP 10')
+        time.sleep(10)
+
         last_page = get_pages_count(get_html(first_breed_page))
-        req_count = 0
+
+        start_sleep(req_count, 301, 'SlEEEEEEP INCOMING')
+
         for page_num in range(1, last_page + 1):
             req_count += 1
-            if req_count % 600 == 0:
-                print("req_count =", req_count)
-                time.sleep(1801)
-                print('sleep 30min')
+            #sleep 5min
+            start_sleep(req_count, 301, 'SlEEEEEEP INCOMING')
             generic_url = breed_url % page_num
+            #one more sleep 10 seconds
+            print('SECOND SLEEEEP 10 sec')
+            time.sleep(10)
             get_base_info(get_html(generic_url), breed)
-        time.sleep(5)
 
 
 
