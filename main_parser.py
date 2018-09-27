@@ -1,7 +1,7 @@
 import csv
 import re
 import time
-from ad_parser import get_ad_info
+#from ad_parser import get_ad_info
 from breed_parser import get_breed
 from requester import get_html
 from bs4 import BeautifulSoup
@@ -77,10 +77,6 @@ def write_to_csv(filename, data, mode='a'):
         print("Unexpected error writing cvf file: ", err)
 
 
-def get_cats_breed(html):
-    pass
-
-
 def start_sleep(request_count, seconds, message):
     if request_count % 4 == 0:
         print(message, request_count)
@@ -91,28 +87,10 @@ def start_sleep(request_count, seconds, message):
 def main():
     # get breed urls
     # около 2к запроса банят, надо слипать на 1500 хз на сколько
-    hardcode_dict_get_breed = {
-                              'Бурманская': 'https://avito.ru/moskva/koshki/burmanskaya?p=%s',
-                              'Девон-рекс': 'https://avito.ru/moskva/koshki/devon-reks?p=%s',
-                              'Европейская': 'https://avito.ru/moskva/koshki/evropeyskaya?p=%s',
-                              'Канадский сфинкс': 'https://avito.ru/moskva/koshki/kanadskiy_sfinks?p=%s',
-                              'Корниш-рекс': 'https://avito.ru/moskva/koshki/kornish-reks?p=%s',
-                              'Курильский бобтейл': 'https://avito.ru/moskva/koshki/kurilskiy_bobteyl?p=%s',
-                              'Мейн-кун': 'https://avito.ru/moskva/koshki/meyn-kun?p=%s',
-                              'Невская маскарадная': 'https://avito.ru/moskva/koshki/nevskaya_maskaradnaya?p=%s',
-                              'Ориентальная': 'https://avito.ru/moskva/koshki/orientalnaya?p=%s',
-                              'Персидская': 'https://avito.ru/moskva/koshki/persidskaya?p=%s',
-                              'Русская голубая': 'https://avito.ru/moskva/koshki/russkaya_golubaya?p=%s',
-                              'Сибирская': 'https://avito.ru/moskva/koshki/sibirskaya?p=%s',
-                              'Турецкая ангора': 'https://avito.ru/moskva/koshki/turetskaya_angora?p=%s',
-                              'Уральский рекс': 'https://avito.ru/moskva/koshki/uralskiy_reks?p=%s',
-                              'Шотландская': 'https://avito.ru/moskva/koshki/shotlandskaya?p=%s',
-                              'Экзотическая': 'https://avito.ru/moskva/koshki/ekzoticheskaya?p=%s',
-                              'Другая': 'https://avito.ru/moskva/koshki/drugaya?p=%s',
-    }
-    #for breed, breed_url in get_breed().items():
+    # добавил кучу слипов, теперь парсим медленно и нежно
+    # чекаем номер запроса, после 5ого слипаем на 5минут(возможно хватит 3-х минут)
     req_count = 0
-    for breed, breed_url in hardcode_dict_get_breed.items():
+    for breed, breed_url in get_breed().items():
         first_breed_page = breed_url % '1'
         req_count += 1
         #sleep
@@ -125,28 +103,13 @@ def main():
 
         for page_num in range(1, last_page + 1):
             req_count += 1
-            #sleep 5min
+            # sleep 5min
             start_sleep(req_count, 301, 'SlEEEEEEP INCOMING')
             generic_url = breed_url % page_num
-            #one more sleep 10 seconds
+            # one more sleep 10 seconds
             print('SECOND SLEEEEP 10 sec')
             time.sleep(10)
             get_base_info(get_html(generic_url), breed)
-
-
-
-
-
-    # get total pages count from first page
-    #url = 'https://www.avito.ru/moskva/koshki/abissinskaya?p=1'
-    #last_page = get_pages_count(get_html(url))
-
-    # need add dynamic cat breed
-    #default_url = 'https://www.avito.ru/moskva/koshki/abissinskaya?p=%s'
-
-    #for page_num in range(1, last_page + 1):
-    #    generic_url = default_url % page_num
-    #    get_base_info(get_html(generic_url))
 
 
 if __name__ == '__main__':
