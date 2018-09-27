@@ -15,11 +15,8 @@ def get_html(url, timeout=5):
         r = requests.get(url, headers=headers, timeout=timeout)
         if str(r.status_code).startswith('5'):
             print("HTTP error code:", r.status_code)
-            sys.exit(1)
         return r.text
     except requests.ConnectTimeout as err:
         print("Request error: %s" % err)
-        sys.exit(1)
     except requests.ConnectionError as err:
         print("Request timeout 5 seconds with error: %s" % err)
-        sys.exit(1)
