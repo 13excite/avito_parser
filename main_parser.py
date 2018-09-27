@@ -83,6 +83,7 @@ def get_cats_breed(html):
 
 def main():
     # get breed urls
+    # около 2к запроса банят, надо слипать на 1500 хз на сколько
     for breed, breed_url in get_breed().items():
         first_breed_page = breed_url % '1'
         last_page = get_pages_count(get_html(first_breed_page))
