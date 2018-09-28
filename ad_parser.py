@@ -72,11 +72,11 @@ def get_ad_info(url, breed):
     }
 
 
-def write_to_csv(data, filename='test_full_ad.csv', mode='a'):
+def write_to_csv(data, filename='total_full_ad.csv', mode='a'):
     try:
         with open(filename, mode) as f:
             w = csv.writer(f, delimiter=';')
-            w.writerow((data['id'],  data['title'], data['date'], data['image_url'],
+            w.writerow((data['id'], data['title'], data['date'], data['image_url'],
                         data['price'], data['address'], data['desc'], data['breed']))
             print('write data')
     except csv.Error as err:
