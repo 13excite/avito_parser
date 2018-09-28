@@ -25,18 +25,33 @@ def get_ad_info(url, breed):
         price = view_header_html.find('div', class_='price-value').text.strip()
     except Exception:
         price = ''
-    title = view_header_html.find('div', class_='title-info-main').text.strip()
+    try:
+        title = view_header_html.find('div', class_='title-info-main').text.strip()
+    except Exception:
+        title = ''
 
     # parse and convert date and id
-    ad_info = view_header_html.find('div', class_='title-info-metadata-item').text.strip()
-    ad_id = ad_info.split(', ')[0].strip('№ ')
-    dirty_date = ad_info.split(', ')[1].split(' ')
     try:
-        ad_date = '%s %s %s' % (dirty_date[1], dirty_date[2], dirty_date[4])
+        ad_info = view_header_html.find('div', class_='title-info-metadata-item').text.strip()
+    except Exception:
+        ad_info = ''
+    try:
+        ad_id = ad_info.split(', ')[0].strip('№ ')
+    except Exception:
+        ad_id = ''
+    try:
+        dirty_date = ad_info.split(', ')[1].split(' ')
+    except Exception:
+        dirty_date = ''
+    try:
+        ad_date = '%s %s %s' % (dirty_date[1], dirty_date[2], dirty_date[3])
     except Exception:
         ad_date = ''
 
-    ad_image = 'https:%s' % view_header_html.find('div', class_='gallery-img-frame').get('data-url')
+    try:
+        ad_image = 'https:%s' % view_header_html.find('div', class_='gallery-img-frame').get('data-url')
+    except Exception:
+        ad_image = ''
     try:
         address = view_header_html.find('span', class_='item-map-address').text
     except Exception:
@@ -57,7 +72,7 @@ def get_ad_info(url, breed):
     }
 
 
-def write_to_csv(data, filename='parser_ad.csv', mode='a'):
+def write_to_csv(data, filename='test_full_ad.csv', mode='a'):
     try:
         with open(filename, mode) as f:
             w = csv.writer(f, delimiter=';')
@@ -90,7 +105,7 @@ def main():
             for row in reader:
                 req_count += 1
                 start_sleep(req_count, 181, 'SLEEEEEP')
-                write_to_csv(get_ad_info(row[1], row[3]))
+                write_to_csv(get_ad_info(row[3], row[8]))
                 print("SLEEP 1sec")
                 time.sleep(2)
 
