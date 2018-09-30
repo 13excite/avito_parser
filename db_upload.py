@@ -49,6 +49,12 @@ class DbExecutor:
         except psycopg2.Error as err:
             print("Error exec query: ", err)
 
+    def query_insert(self, query):
+        try:
+            self.cur.execute(query)
+        except psycopg2.Error as err:
+            print("Error exec query: ", err)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -57,6 +63,9 @@ def main():
 
     auth_dict = _get_auth(args.config)
     db = DbExecutor(auth_dict)
+    print(db.query_select('select * from testtable'))
+
+    db.query_insert('insert into testtable VALUES (4, \'zsssszzzzz\');')
     print(db.query_select('select * from testtable'))
 
 
