@@ -4,7 +4,7 @@ import psycopg2
 import sys
 
 
-def _get_auth(file=None):
+def get_auth(file=None):
     data = {"user": "", "pass": "", "db": ""}
     if file:
         try:
@@ -62,7 +62,7 @@ def main():
     parser.add_argument('-c', '--config', type=str, help='usage -c /path/dbconf.ini ', required=True)
     args = parser.parse_args()
 
-    auth_dict = _get_auth(args.config)
+    auth_dict = get_auth(args.config)
     db = DbExecutor(auth_dict)
     print(db.query_select('select * from testtable'))
 
