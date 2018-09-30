@@ -26,10 +26,11 @@ def _get_auth(file=None):
 
 
 class DbExecutor:
-    def __init__(self, auth_data):
-        conn_string = "host=127.0.0.1 dbname=%s user=%s password=%s" % (auth_data['db'], auth_data['user'], auth_data['pass'])
+    def __init__(self, auth_data, host='127.0.0.1'):
+        conn_string = "host=%s dbname=%s user=%s password=%s" % (host, auth_data['db'], auth_data['user'], auth_data['pass'])
         try:
             self.conn = psycopg2.connect(conn_string)
+            self.conn.autocommit = True
             self.cur = self.conn.cursor()
         except psycopg2.Error as err:
             print("Error %d: %s" % (err.args[0], err.args[1]))
@@ -65,7 +66,7 @@ def main():
     db = DbExecutor(auth_dict)
     print(db.query_select('select * from testtable'))
 
-    db.query_insert('insert into testtable VALUES (4, \'zsssszzzzz\');')
+    db.query_insert('insert into testtable VALUES (5, \'dsdszzzz\');')
     print(db.query_select('select * from testtable'))
 
 
