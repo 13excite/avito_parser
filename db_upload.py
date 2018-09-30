@@ -43,8 +43,11 @@ class DbExecutor:
             self.conn.close()
 
     def query_select(self, query):
-        self.cur.execute(query)
-        return self.cur.fetchall()
+        try:
+            self.cur.execute(query)
+            return self.cur.fetchall()
+        except psycopg2.Error as err:
+            print("Error exec query: ", err)
 
 
 def main():
