@@ -5,6 +5,9 @@ import sys
 
 
 def get_auth(file=None):
+    """
+    открываем ini файл, и вытаскиваем оттуда чувствительные данные, которые в ввиде dict передаем в класс DB
+    """
     data = {"user": "", "pass": "", "db": ""}
     if file:
         try:

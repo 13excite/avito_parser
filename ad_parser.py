@@ -2,7 +2,7 @@ import argparse
 import csv
 import time
 from bs4 import BeautifulSoup
-from requester import get_html
+from parsers.requester import get_html
 
 
 def get_item_ad(url):

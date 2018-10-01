@@ -1,8 +1,8 @@
 import csv
 import re
 import time
-from breed_parser import get_breed  #не используется, дергаем захардкоженный линк
-from requester import get_html
+from parsers.breed_parser import get_breed  #не используется, дергаем захардкоженный линк
+from parsers.requester import get_html
 from bs4 import BeautifulSoup
 import sys
 
