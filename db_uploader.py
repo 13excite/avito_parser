@@ -22,16 +22,14 @@ def convert_to_date_format(date_string):
             print(date_string)
             print("Error: ", err)
             date = datetime.now().strftime("%Y-%m-%d %H-%M")
-        print(date)
     elif today_pattern.match(date_string):
         date = "%s %s" % (datetime.now().strftime("%Y-%m-%d"), date_string.split()[2])
-        print(date)
     elif yesterday_pattern.match(date_string):
         date = "%s %s" % (datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d'), date_string.split()[2])
         print(date)
     else:
         date = datetime.now().strftime("%Y-%m-%d %H:%M")
-        print(date)
+    return  date
 
 
 def csv_reader(file):
@@ -39,8 +37,21 @@ def csv_reader(file):
         with open(file, 'r') as f:
             reader = csv.reader(f, delimiter=";")
             for row in reader:
-               # "INSERT INTO testtable VALUES (%s, );" % ()
-                convert_to_date_format(row[2])
+                id = row[0]
+                title = row[1]
+                date = str(convert_to_date_format(row[2]))
+                img_url = row[3]
+                if row[4]:
+                    price = row[4]
+                else:
+                    price='NULL'
+                address = row[5]
+                desc = row[6]
+                breed = row[7]
+                query = "INSERT INTO items (id, title, start_date, img_url, price, address, description, breed)" \
+                        "VALUES (%s, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\' )" % (id, title, date, img_url, price, address, desc, breed)
+
+                print(query)
     except IOError as err:
         print('I/O Error: ', err)
     except Exception as err:
