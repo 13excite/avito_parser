@@ -57,21 +57,6 @@ class DbExecutor:
         try:
             self.cur.execute(query)
         except psycopg2.Error as err:
+            print(query)
             print("Error exec query: ", err)
 
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', type=str, help='usage -c /path/dbconf.ini ', required=True)
-    args = parser.parse_args()
-
-    auth_dict = get_auth(args.config)
-    db = DbExecutor(auth_dict)
-    print(db.query_select('select * from testtable'))
-
-    db.query_insert('insert into testtable VALUES (5, \'dsdszzzz\');')
-    print(db.query_select('select * from testtable'))
-
-
-if __name__ == '__main__':
-    main()
