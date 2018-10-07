@@ -2,9 +2,11 @@ import argparse
 import csv
 from datetime import datetime, timedelta
 from db.db_executor import DbExecutor, get_auth
+from translate_breed import translate_breed
 import random
 import re
 import uuid
+
 
 
 def random_time_generator():
@@ -52,8 +54,12 @@ def csv_reader(file):
                 address = row[5]
                 desc = row[6].replace("'", "")
                 breed = row[7]
-                query = "INSERT INTO items (id, title, start_date, img_url, price, address, description, breed)" \
-                        "VALUES (%s, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\' );" % (id, title, date, img_url, price, address, desc, breed)
+                if breed in translate_breed.keys():
+                    tr_breed = translate_breed.get(breed)
+                else:
+                    tr_breed = breed
+                query = "INSERT INTO items (id, title, start_date, img_url, price, address, description, breed, translate_breed)" \
+                        "VALUES (%s, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\' );" % (id, title, date, img_url, price, address, desc, breed, tr_breed)
 
                 yield query
     except IOError as err:
