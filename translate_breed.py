@@ -1,0 +1,22 @@
+translate_breed = {
+    'Абиссинская': 'abissinskaya',
+    'Бенгальская': 'bengalskaya',
+    'Британская': 'britanskaya',
+    'Бурманская': 'burmanskaya',
+    'Девон-рекс': 'devon-reks',
+    'Европейская': 'evropeyskaya',
+    'Канадский сфинкс': 'kanadskiy_sfinks',
+    'Корниш-рекс': 'kornish-reks',
+    'Курильский бобтейл': 'kurilskiy_bobteyl',
+    'Мейн-кун': 'meyn-kun',
+    'Невская маскарадная': 'nevskaya_maskaradnaya',
+    'Ориентальная': 'orientalnaya',
+    'Персидская': 'persidskaya',
+    'Русская голубая': 'russkaya_golubaya',
+    'Сибирская': 'sibirskaya',
+    'Турецкая ангора': 'turetskaya_angora',
+    'Уральский рекс': 'uralskiy_reks',
+    'Шотландская': 'shotlandskaya',
+    'Экзотическая': 'ekzoticheskaya',
+    'Другая': 'drugaya'
+}
